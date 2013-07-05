@@ -19,5 +19,5 @@ Both can be installed with pip: "pip install ansible twisted"
 
 Install executioner by cloning this repository into a folder. Go into it and type "python app.py". This will start the web server at port 9000. Open the ui in browser at: "http://localhost:9000".
 
-Remember to configure ansil inventory and needed ssh keay before using running this server.
+Remember to configure ansil inventory and needed ssh key before using running this server.
 
