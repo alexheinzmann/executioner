@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Main Page
+  </title>
+  <link href='/css/base.css' rel='stylesheet' type='text/css'></link>
+</head>
+<body>
+  <div id="mainwrapper">
+    <h1>Ansible Web UI</h1>
+    <div class="functionModule">
+      <h3>Run module:</h3>
+      <form method="get" action="#" id="runCommandForm">
+        <label>Hosts/Groups: </label>
+        <input type="text" id="hostsInput" value="ubuntu"></input>
+        <label>Module: </label>
+        <input type="text" value="command" id="moduleInput"></input>
+        <label>Attr: </label>
+        <input type="text" id="attrInput" value="cat /etc/hosts"></input>
+        <input type="submit" value="Run" ></input>
+      </form>
+      <div id="resultsBox">
+      </div>
+      <div class="hintbox">
+        <h4>Hosts</h4><br>
+        <ul class="hintlist" id="hostlist">
+          Loading...
+        </ul>
+      </div>
+      <div class="hintbox">
+        <h4>Groups</h4><br>
+        <ul class="hintlist" id="grouplist">
+          Loading...
+        </ul>
+      </div>
+      <div class="hintbox">
+        <h4>Modules</h4><br>
+        <ul class="hintlist" id="modulelist">
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="/js/executioner.js"></script>
+</body>
+</html>
