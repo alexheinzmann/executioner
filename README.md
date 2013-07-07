@@ -1,10 +1,12 @@
 # The Executioner
 
-The Executioner executes commands (only).
+The Executioner executes ansible commands (only).
 
 Based on Ansible for the backend, it provides a simple web interface where an end-user can type a command, select the targets (hosts) from an inventory available somewhere and start the execution flow.
 
 Simple approach is to use ansible task only. More advanced would consider using ansible playbook for task chaining.
+
+**WARNING**: Currently the web UI doesn't use authentication. This can be a big security risk, use with caution.
 
 
 ## Dependencies
