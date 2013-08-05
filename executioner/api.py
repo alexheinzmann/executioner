@@ -121,7 +121,7 @@ class RunCommandHandler(Resource):
         return
 
     def _errback(self, data, request=None):
-        request.write(jsonify(error_page(request)))
+        request.write(jsonify(request, error_page(request)))
         request.finish()
         return
 
