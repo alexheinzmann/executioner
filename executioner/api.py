@@ -91,12 +91,12 @@ class CommandManager(Resource):
             cur = conn.cursor()
             
             if (not validId(id)):
-                return None
+                return jsonify(request, "None")
             
             cur.execute("SELECT * FROM Commands WHERE Id = " + id)
             
             command = cur.fetchone()
-            
+                        
             return jsonify(request, command) 
         
     def render_PUT(self, request):
@@ -114,7 +114,7 @@ class CommandManager(Resource):
         command = self._get_argument(request, "command")
  
         if (not validId(id)):
-            return None
+            return jsonify(request, "None")
         
         entry = id + ",'" + name + "','" + description + "','" + module + "','" + command + "'"
         
@@ -160,7 +160,10 @@ class CommandManager(Resource):
             """
             return the added command
             """
-            """cur.execute("SELECT * FROM Commands WHERE Id = " + id)"""
+            id = str(cur.lastrowid)
+            
+            cur.execute("SELECT * FROM Commands WHERE Id = " + id)
+
             command = cur.fetchone()
             
             return jsonify(request, command) 
@@ -173,7 +176,7 @@ class CommandManager(Resource):
         id = self._get_argument(request, "id")
         
         if (not validId(id)):
-                return None
+                return jsonify(request, "None")
         
         conn = sqlite3.connect('commands.db')
         with conn:
