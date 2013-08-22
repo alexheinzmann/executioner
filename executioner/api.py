@@ -93,7 +93,7 @@ class CommandManager(Resource):
             if (not validId(id)):
                 return jsonify(request, "None")
             
-            cur.execute("SELECT * FROM Commands WHERE Id = " + id)
+            cur.execute("SELECT * FROM Commands WHERE Id = ?", [id])
             
             command = cur.fetchone()
                         
@@ -116,8 +116,8 @@ class CommandManager(Resource):
         if (not validId(id)):
             return jsonify(request, "None")
         
-        entry = id + ",'" + name + "','" + description + "','" + module + "','" + command + "'"
-        
+        entry = [id, name, description, module, command]
+                
         conn = sqlite3.connect('commands.db')
         with conn:
             cur = conn.cursor()
@@ -125,14 +125,14 @@ class CommandManager(Resource):
             """
             Fist, remove the old command, then add the new command       
             """ 
-            cur.execute("DELETE FROM Commands WHERE Id = " + id)
+            cur.execute("DELETE FROM Commands WHERE Id = ?",  [id])
 
-            cur.execute("INSERT INTO Commands VALUES(" + entry + ")")
+            cur.execute("INSERT INTO Commands VALUES(?,?,?,?,?)", entry)
             
             """
             return the added command
             """
-            cur.execute("SELECT * FROM Commands WHERE Id = " + id)
+            cur.execute("SELECT * FROM Commands WHERE Id = ?", [id])
             command = cur.fetchone()
             
             return jsonify(request, command) 
@@ -149,20 +149,20 @@ class CommandManager(Resource):
         module = self._get_argument(request, "module")
         command = self._get_argument(request, "command")
         
-        entry =  "'" + name + "','" + description + "','" + module + "','" + command + "'"
+        entry = [name, description, module, command]
         
         conn = sqlite3.connect('commands.db')
         with conn:
             cur = conn.cursor()
             
-            cur.execute("INSERT INTO Commands (Name, Description, Module, Command) VALUES(" + entry + ")")
+            cur.execute("INSERT INTO Commands (Name, Description, Module, Command) VALUES (?,?,?,?)", entry)
             
             """
             return the added command
             """
             id = str(cur.lastrowid)
             
-            cur.execute("SELECT * FROM Commands WHERE Id = " + id)
+            cur.execute("SELECT * FROM Commands WHERE Id = ?", [id])
 
             command = cur.fetchone()
             
@@ -181,7 +181,7 @@ class CommandManager(Resource):
         conn = sqlite3.connect('commands.db')
         with conn:
             cur = conn.cursor()
-            cur.execute("DELETE FROM Commands WHERE Id = " + id)
+            cur.execute("DELETE FROM Commands WHERE Id = ?", [id])
             
 
     def _get_argument(self, request, name, default=""):
